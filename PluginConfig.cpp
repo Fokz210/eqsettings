@@ -83,3 +83,8 @@ void PluginConfig::printConfig (std::ostream & out) const
 
     out << m_params;
 }
+
+bool PluginConfig::getActive () const
+{
+    return m_active;
+}

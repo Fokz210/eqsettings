@@ -23,6 +23,7 @@ public:
     void setType(const std::string & type);
     void setParams(std::string & params);
     void setActive(bool active);
+    bool getActive() const;
 
     std::string getType() const;
     std::string getParams() const;

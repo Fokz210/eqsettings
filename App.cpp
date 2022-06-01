@@ -56,7 +56,18 @@ bool App::parseCommand (const std::string &command)
 
 void App::readINI (const std::string &configFilePath)
 {
-    std::ifstream iniFile (configFilePath);
+    std::ifstream iniFile(configFilePath);
+    if (iniFile.fail()) {
+        std::ofstream outFile(configFilePath);
+        if (outFile.fail()) {
+            std::cerr << "Failed to create file: " << configFilePath << std::endl;
+            return;
+        }
+        outFile << R"(configPath="C:\Program Files\EqualizerAPO\config\config.txt")";
+        outFile.close();
+        return;
+    }
+
     for (std::string line; std::getline(iniFile, line);)
     {
         if (line.empty())

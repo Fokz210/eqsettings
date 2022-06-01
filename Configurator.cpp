@@ -21,7 +21,14 @@ Configurator::Configurator () :
 
 void Configurator::loadConfig (const std::string &configFilePath)
 {
-    std::ifstream configFile(configFilePath);
+    std::ifstream configFile;
+    try {
+        configFile.open(configFilePath);
+    } catch (std::exception &e) {
+        std::cerr << "Error opening config file: " << e.what() << std::endl;
+        return;
+    }
+
     std::string line;
     while (std::getline(configFile, line))
     {
