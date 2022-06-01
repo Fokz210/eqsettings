@@ -1,6 +1,5 @@
 # EqualizerAPO mini cli plugin state configurator
 
-## Dependencies 
 This program is a cli interface for the [EqualizerAPO](https://sourceforge.net/projects/equalizerapo/).  
 
 ## Configuration
