@@ -4,6 +4,7 @@ This program is a cli interface for the [EqualizerAPO](https://sourceforge.net/p
 
 ## Configuration
 You can set config file path in file 'EQSettings.ini' which is created on first run.
+For now, you need to add plugins by EqualizerAPO GUI. This cli can only switch their state. 
 
 ## Usage
 - Switch plugin state: `$ ./EQSettings.exe [plugin index]`
