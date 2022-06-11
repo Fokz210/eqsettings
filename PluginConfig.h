@@ -24,6 +24,7 @@ public:
     void setParams(std::string & params);
     void setActive(bool active);
     bool getActive() const;
+    void switchActive();
 
     std::string getType() const;
     std::string getParams() const;

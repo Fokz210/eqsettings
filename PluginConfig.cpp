@@ -88,3 +88,8 @@ bool PluginConfig::getActive () const
 {
     return m_active;
 }
+
+void PluginConfig::switchActive ()
+{
+    m_active = !m_active;
+}

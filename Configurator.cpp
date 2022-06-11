@@ -137,16 +137,19 @@ void Configurator::clearConfig ()
 
 void Configurator::switchPlugin (std::queue <std::string> &cmdQueue)
 {
-    if (cmdQueue.empty())
-        throw std::runtime_error("no argument");
+    if (cmdQueue.empty ())
+        throw std::runtime_error ("no argument");
 
-    auto pluginId = std::atoi(cmdQueue.front().c_str());
-    cmdQueue.pop();
+    auto pluginId = 0;
 
-    pluginId = std::min(static_cast<int>(m_pluginLines.size()), pluginId);
-    pluginId = std::max(1, pluginId);
-    pluginId--;
+    while (!cmdQueue.empty() && (pluginId = std::strtol (cmdQueue.front ().c_str (), nullptr, 10)))
+    {
+        cmdQueue.pop ();
 
-    m_pluginLines[pluginId].setActive (!m_pluginLines[pluginId].getActive());
+        pluginId = std::min (static_cast<int>(m_pluginLines.size ()), pluginId);
+        pluginId = std::max (1, pluginId);
+        pluginId--;
+        m_pluginLines[pluginId].switchActive ();
+
+    }
 }
-
