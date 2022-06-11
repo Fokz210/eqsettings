@@ -49,6 +49,8 @@ public:
     __CONFIGURATOR_CMD__ void disableAll(std::queue<std::string> & cmdQueue);
     __CONFIGURATOR_CMD__ void enableAll(std::queue<std::string> & cmdQueue);
     __CONFIGURATOR_CMD__ void switchPlugin(std::queue<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void turnOn(std::queue<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void turnOff(std::queue<std::string> & cmdQueue);
 
     [[deprecated("Use getState instead")]]
     PluginConfig &operator[](const size_t &index);

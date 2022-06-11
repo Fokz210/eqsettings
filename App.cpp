@@ -31,8 +31,9 @@ bool App::runCommand (std::queue<std::string> & cmdQueue)
 
 void App::assignCommands ()
 {
-    m_commands["off"] = &App::disableAll;
-    m_commands["all"] = &App::enableAll;
+    m_commands["off"] = &App::turnOff;
+    m_commands["on"] = &App::turnOn;
+    m_commands["all"] = &App::turnOn;
     m_commands["switch"] = &App::switchPlugin;
 }
 

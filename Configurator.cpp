@@ -153,3 +153,40 @@ void Configurator::switchPlugin (std::queue <std::string> &cmdQueue)
 
     }
 }
+
+void Configurator::turnOn (std::queue <std::string> &cmdQueue)
+{
+    if (cmdQueue.empty() || !std::strtol (cmdQueue.front ().c_str (), nullptr, 10))
+        enableAll(cmdQueue);
+
+    auto pluginId = 0;
+
+    while (!cmdQueue.empty() && (pluginId = std::strtol (cmdQueue.front ().c_str (), nullptr, 10)))
+    {
+        cmdQueue.pop ();
+
+        pluginId = std::min (static_cast<int>(m_pluginLines.size ()), pluginId);
+        pluginId = std::max (1, pluginId);
+        pluginId--;
+        m_pluginLines[pluginId].setActive (true);
+
+    }
+}
+
+void Configurator::turnOff (std::queue <std::string> &cmdQueue)
+{
+    if (cmdQueue.empty() || !std::strtol (cmdQueue.front ().c_str (), nullptr, 10))
+        disableAll (cmdQueue);
+
+    auto pluginId = 0;
+
+    while (!cmdQueue.empty() && (pluginId = std::strtol (cmdQueue.front ().c_str (), nullptr, 10)))
+    {
+        cmdQueue.pop ();
+
+        pluginId = std::min (static_cast<int>(m_pluginLines.size ()), pluginId);
+        pluginId = std::max (1, pluginId);
+        pluginId--;
+        m_pluginLines[pluginId].setActive (false);
+    }
+}
