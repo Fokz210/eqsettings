@@ -13,45 +13,33 @@ App::App () :
     assignCommands();
 }
 
-bool App::runCommand (const std::string &command)
+bool App::runCommand (std::queue<std::string> & cmdQueue)
 {
-    auto active = 1;
+    auto command = cmdQueue.front();
 
-    if (parseCommand (command))
-    {
-        return true;
-    }
-    else
-    {
-        active = std::strtol(command.c_str(), nullptr, 10);
-        active = std::max (--active, 0);
-    }
-
-    if (active > getPlugins().size() - 1)
-        active = 0;
-
-    setState(active, !getState(active));
-
-    return true;
-}
-
-void App::assignCommands ()
-{
-    m_commands["off"] = &App::disableAll;
-    m_commands["all"] = &App::enableAll;
-}
-
-bool App::parseCommand (const std::string &command)
-{
     auto it = m_commands.find(command);
 
     if (it != m_commands.end())
     {
-        (this->*it->second)();
+        cmdQueue.pop();
+        (this->*it->second)(cmdQueue);
         return true;
     }
 
     return false;
+}
+
+void App::assignCommands ()
+{
+    m_commands["off"] = &App::turnOff;
+    m_commands["on"] = &App::turnOn;
+    m_commands["all"] = &App::turnOn;
+    m_commands["switch"] = &App::switchPlugin;
+}
+
+bool App::parseCommand (const std::string &command)
+{
+
 }
 
 void App::readINI (const std::string &configFilePath)
