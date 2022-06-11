@@ -7,13 +7,17 @@ You can set config file path in file 'EQSettings.ini' which is created on first 
 For now, you need to add plugins by EqualizerAPO GUI. This cli can only switch their state. 
 
 ## Usage
-- Switch plugin state: `$ ./EQSettings.exe [plugin index]`
-- Turn all plugins off: `$ ./EQSettings.exe off`
-- Turn all plugins on: `$ ./EQSettings.exe all` 
+`$ ./EQSettings.exe [command [args]]`
+### Commands:
+- Switch plugin state: `$ ./EQSettings.exe switch plugin # [more plugin #'s]`
+- Turn all plugins off: `$ ./EQSettings.exe off [plugin #]` (if no plugin # present, turns off all the plugins)
+- Turn all plugins on: `$ ./EQSettings.exe on [pliugin #]`  (if no plugin # present, turns on all the plugins)
 
-You can also combine commands:
+Examples:
     
-    $ ./EQSettings.exe off 1 2 3 
+    $ ./EQSettings.exe off switch 1 2
+    $ ./EQSettings.exe off 1
+    $ ./EQSettings.exe on 1 2  
 
 ### todo:
 - add support for plugin arguments changing

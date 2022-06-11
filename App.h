@@ -23,6 +23,7 @@ public:
 
 private:
     void assignCommands();
+
     bool parseCommand(const std::string &command);
 };
 
