@@ -4,10 +4,15 @@
 
 #ifndef EQSETTINGS_CONFIGURATOR_H
 #define EQSETTINGS_CONFIGURATOR_H
+#endif
+
+#ifndef __CONFIGURATOR_CMD__
+#define __CONFIGURATOR_CMD__
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
 
 #include "PluginConfig.h"
 
@@ -30,8 +35,8 @@ public:
     void printConfig(std::ostream & out = std::cout) const;
     void saveConfig(const std::string & configFilePath) const;
 
-    void disableAll();
-    void enableAll();
+    void clearConfig();
+
     void setState(int index, bool state);
     bool getState(int index) const;
 
@@ -40,6 +45,10 @@ public:
 
     void disableAutoSave();
     void enableAutoSave();
+
+    __CONFIGURATOR_CMD__ void disableAll(std::queue<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void enableAll(std::queue<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void switchPlugin(std::queue<std::string> & cmdQueue);
 
     [[deprecated("Use getState instead")]]
     PluginConfig &operator[](const size_t &index);

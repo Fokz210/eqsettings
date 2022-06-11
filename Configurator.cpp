@@ -50,8 +50,6 @@ void Configurator::saveConfig (const std::string &config) const
 {
     std::ofstream out(config);
     printConfig(out);
-
-
 }
 
 void Configurator::setPlugins (const std::vector <PluginConfig> &plugins)
@@ -69,7 +67,7 @@ PluginConfig &Configurator::operator[] (const size_t &index)
     return m_pluginLines[index];
 }
 
-void Configurator::disableAll ()
+void Configurator::disableAll (std::queue<std::string> & cmdQueue)
 {
     for (auto &pluginLine : m_pluginLines)
     {
@@ -95,8 +93,9 @@ Configurator::~Configurator ()
     }
 }
 
-void Configurator::enableAll ()
+void Configurator::enableAll (std::queue<std::string> & cmdQueue)
 {
+
     for (auto &pluginLine : m_pluginLines)
     {
         pluginLine.setActive(true);
@@ -129,3 +128,25 @@ void Configurator::loadConfig ()
 {
     loadConfig(m_configFilePath);
 }
+
+void Configurator::clearConfig ()
+{
+    m_pluginLines.clear();
+
+}
+
+void Configurator::switchPlugin (std::queue <std::string> &cmdQueue)
+{
+    if (cmdQueue.empty())
+        throw std::runtime_error("no argument");
+
+    auto pluginId = std::atoi(cmdQueue.front().c_str());
+    cmdQueue.pop();
+
+    pluginId = std::min(static_cast<int>(m_pluginLines.size()), pluginId);
+    pluginId = std::max(1, pluginId);
+    pluginId--;
+
+    m_pluginLines[pluginId].setActive (!m_pluginLines[pluginId].getActive());
+}
+
