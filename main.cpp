@@ -15,15 +15,22 @@ std::string removeQuotes (std::string str)
     return str;
 }
 
-
-int main()
+int main (int argc, char *argv[])
 {
-    ScriptLoader sl("scripts");
-    sl.scanScripts();
-    sl.preload();
+    App app;
 
-    std::list<std::string> script = sl.getScript ("test1").m_script;
+    std::list<std::string> argQueue;
+    for (int i = 1; i < argc; i++)
+    {
+        argQueue.emplace_back(argv[i]);
+    }
 
-    for (auto && el : script)
-        std::cout << el << " ";
+    while (!argQueue.empty())
+    {
+        if (!app.runCommand (argQueue))
+            return 1;
+    }
+
+    return 0;
 }
+
