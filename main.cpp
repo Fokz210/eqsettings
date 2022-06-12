@@ -2,6 +2,7 @@
 #include <queue>
 #include <list>
 #include "App.h"
+#include "ScriptLoader.h"
 
 std::string removeQuotes (std::string str)
 {
@@ -14,21 +15,15 @@ std::string removeQuotes (std::string str)
     return str;
 }
 
-int main (int argc, char *argv[])
+
+int main()
 {
-    App app;
+    ScriptLoader sl("scripts");
+    sl.scanScripts();
+    sl.preload();
 
-    std::list<std::string> argQueue;
-    for (int i = 1; i < argc; i++)
-    {
-        argQueue.emplace_back(argv[i]);
-    }
+    std::list<std::string> script = sl.getScript ("test1").m_script;
 
-    while (!argQueue.empty())
-    {
-        if (!app.runCommand (argQueue))
-            return 1;
-    }
-
-    return 0;
+    for (auto && el : script)
+        std::cout << el << " ";
 }
