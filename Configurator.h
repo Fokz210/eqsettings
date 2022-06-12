@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <list>
 
 #include "PluginConfig.h"
 
@@ -46,11 +47,11 @@ public:
     void disableAutoSave();
     void enableAutoSave();
 
-    __CONFIGURATOR_CMD__ void disableAll(std::queue<std::string> & cmdQueue);
-    __CONFIGURATOR_CMD__ void enableAll(std::queue<std::string> & cmdQueue);
-    __CONFIGURATOR_CMD__ void switchPlugin(std::queue<std::string> & cmdQueue);
-    __CONFIGURATOR_CMD__ void turnOn(std::queue<std::string> & cmdQueue);
-    __CONFIGURATOR_CMD__ void turnOff(std::queue<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void disableAll(std::list<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void enableAll(std::list<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void switchPlugin(std::list<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void turnOn(std::list<std::string> & cmdQueue);
+    __CONFIGURATOR_CMD__ void turnOff(std::list<std::string> & cmdQueue);
 
     [[deprecated("Use getState instead")]]
     PluginConfig &operator[](const size_t &index);

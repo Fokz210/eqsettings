@@ -13,12 +13,12 @@
 class App : public Configurator
 {
 private:
-    std::unordered_map<std::string, void(App::*)(std::queue<std::string> & commandQueue)> m_commands;
+    std::unordered_map<std::string, void(App::*)(std::list<std::string> & commandQueue)> m_commands;
 
 public:
     App();
     ~App() = default;
-    bool runCommand(std::queue<std::string> &commandQueue);
+    bool runCommand(std::list<std::string> &commandQueue);
     void readINI(const std::string &configFilePath);
 
 private:

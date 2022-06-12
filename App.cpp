@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <list>
 #include "App.h"
 
 App::App () :
@@ -13,7 +14,7 @@ App::App () :
     assignCommands();
 }
 
-bool App::runCommand (std::queue<std::string> & cmdQueue)
+bool App::runCommand (std::list<std::string> & cmdQueue)
 {
     auto command = cmdQueue.front();
 
@@ -21,7 +22,7 @@ bool App::runCommand (std::queue<std::string> & cmdQueue)
 
     if (it != m_commands.end())
     {
-        cmdQueue.pop();
+        cmdQueue.pop_front();
         (this->*it->second)(cmdQueue);
         return true;
     }
@@ -39,7 +40,7 @@ void App::assignCommands ()
 
 bool App::parseCommand (const std::string &command)
 {
-
+    return false;
 }
 
 void App::readINI (const std::string &configFilePath)

@@ -67,7 +67,7 @@ PluginConfig &Configurator::operator[] (const size_t &index)
     return m_pluginLines[index];
 }
 
-void Configurator::disableAll (std::queue<std::string> & cmdQueue)
+void Configurator::disableAll (std::list<std::string> & cmdQueue)
 {
     for (auto &pluginLine : m_pluginLines)
     {
@@ -93,7 +93,7 @@ Configurator::~Configurator ()
     }
 }
 
-void Configurator::enableAll (std::queue<std::string> & cmdQueue)
+void Configurator::enableAll (std::list<std::string> & cmdQueue)
 {
 
     for (auto &pluginLine : m_pluginLines)
@@ -135,7 +135,7 @@ void Configurator::clearConfig ()
 
 }
 
-void Configurator::switchPlugin (std::queue <std::string> &cmdQueue)
+void Configurator::switchPlugin (std::list <std::string> &cmdQueue)
 {
     if (cmdQueue.empty ())
         throw std::runtime_error ("no argument");
@@ -144,7 +144,7 @@ void Configurator::switchPlugin (std::queue <std::string> &cmdQueue)
 
     while (!cmdQueue.empty() && (pluginId = std::strtol (cmdQueue.front ().c_str (), nullptr, 10)))
     {
-        cmdQueue.pop ();
+        cmdQueue.pop_front();
 
         pluginId = std::min (static_cast<int>(m_pluginLines.size ()), pluginId);
         pluginId = std::max (1, pluginId);
@@ -154,7 +154,7 @@ void Configurator::switchPlugin (std::queue <std::string> &cmdQueue)
     }
 }
 
-void Configurator::turnOn (std::queue <std::string> &cmdQueue)
+void Configurator::turnOn (std::list <std::string> &cmdQueue)
 {
     if (cmdQueue.empty() || !std::strtol (cmdQueue.front ().c_str (), nullptr, 10))
         enableAll(cmdQueue);
@@ -163,7 +163,7 @@ void Configurator::turnOn (std::queue <std::string> &cmdQueue)
 
     while (!cmdQueue.empty() && (pluginId = std::strtol (cmdQueue.front ().c_str (), nullptr, 10)))
     {
-        cmdQueue.pop ();
+        cmdQueue.pop_front();
 
         pluginId = std::min (static_cast<int>(m_pluginLines.size ()), pluginId);
         pluginId = std::max (1, pluginId);
@@ -173,7 +173,7 @@ void Configurator::turnOn (std::queue <std::string> &cmdQueue)
     }
 }
 
-void Configurator::turnOff (std::queue <std::string> &cmdQueue)
+void Configurator::turnOff (std::list <std::string> &cmdQueue)
 {
     if (cmdQueue.empty() || !std::strtol (cmdQueue.front ().c_str (), nullptr, 10))
         disableAll (cmdQueue);
@@ -182,7 +182,7 @@ void Configurator::turnOff (std::queue <std::string> &cmdQueue)
 
     while (!cmdQueue.empty() && (pluginId = std::strtol (cmdQueue.front ().c_str (), nullptr, 10)))
     {
-        cmdQueue.pop ();
+        cmdQueue.pop_front ();
 
         pluginId = std::min (static_cast<int>(m_pluginLines.size ()), pluginId);
         pluginId = std::max (1, pluginId);

@@ -1,5 +1,6 @@
 #include <fstream>
 #include <queue>
+#include <list>
 #include "App.h"
 
 std::string removeQuotes (std::string str)
@@ -17,10 +18,10 @@ int main (int argc, char *argv[])
 {
     App app;
 
-    std::queue<std::string> argQueue;
+    std::list<std::string> argQueue;
     for (int i = 1; i < argc; i++)
     {
-        argQueue.emplace (argv[i]);
+        argQueue.emplace_back(argv[i]);
     }
 
     while (!argQueue.empty())
