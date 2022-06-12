@@ -4,13 +4,15 @@
 
 #include <fstream>
 #include <list>
+#include <windows.h>
+
 #include "App.h"
 
 App::App () :
     Configurator(),
-    m_scriptLoader("scripts")
+    m_scriptLoader(std::filesystem::path(_pgmptr).remove_filename().append("source").string())
 {
-    readINI("EQSettings.ini");
+    readINI(std::filesystem::path(_pgmptr).remove_filename().append("EQSettings.ini").string());
     loadConfig();
     assignCommands();
     m_scriptLoader.preload();
@@ -78,5 +80,14 @@ void App::readINI (const std::string &configFilePath)
             setConfigFilePath(buffer);
             continue;
         }
+        if (line.find("scriptFolderPath") != std::string::npos)
+        {
+            std::string buffer = line.substr (line.find('=') + 1);
+            buffer = buffer.substr (1, buffer.size() - 2);
+            m_scriptLoader.setScriptsFolderPath (buffer);
+            m_scriptLoader.scanScripts();
+            continue;
+        }
+
     }
 }

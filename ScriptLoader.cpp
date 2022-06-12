@@ -34,9 +34,9 @@ void ScriptLoader::scanScripts ()
     m_scripts.clear();
 
     std::filesystem::path path(m_scriptsFolderPath);
+
     if (std::filesystem::is_directory (path)) {
         for (const auto & entry : std::filesystem::directory_iterator(path)) {
-
             m_scripts.insert ({entry.path().filename().string(), Script()});
 
         }
