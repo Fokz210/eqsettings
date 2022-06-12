@@ -50,11 +50,17 @@ std::unordered_map <std::string, Script> ScriptLoader::getScriptSet () const
 
 bool ScriptLoader::hasScript (const std::string& scriptName) const
 {
+    if (scriptName.find (".eqs") == std::string::npos)
+        return m_scripts.count(scriptName + ".eqs");
+
     return m_scripts.count(scriptName);
 }
 
 void ScriptLoader::preload ()
 {
+    if (m_scripts.empty())
+        scanScripts();
+
     for (auto && pair : m_scripts)
     {
         pair.second.load (m_scriptsFolderPath + '/' + pair.first);

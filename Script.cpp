@@ -15,9 +15,11 @@ bool Script::load (const std::filesystem::path &path)
     std::string version;
     scriptFile >> version;
 
-    if (version < EQSETTINGS_VERSION)
+    if (version > EQSETTINGS_VERSION)
+    {
+        std::cerr << "error: " + path.filename().string() + " script version " + version + " is higher than tool version " + EQSETTINGS_VERSION << std::endl;
         return false;
-
+    }
     std::string cmd;
     while (scriptFile >> cmd)
     {

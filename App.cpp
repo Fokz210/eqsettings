@@ -7,11 +7,13 @@
 #include "App.h"
 
 App::App () :
-    Configurator()
+    Configurator(),
+    m_scriptLoader("scripts")
 {
     readINI("EQSettings.ini");
     loadConfig();
     assignCommands();
+    m_scriptLoader.preload();
 }
 
 bool App::runCommand (std::list<std::string> & cmdQueue)
@@ -24,6 +26,13 @@ bool App::runCommand (std::list<std::string> & cmdQueue)
     {
         cmdQueue.pop_front();
         (this->*it->second)(cmdQueue);
+        return true;
+    }
+    else if (m_scriptLoader.hasScript (command))
+    {
+        cmdQueue.pop_front();
+        auto subQueue = m_scriptLoader.getScript (command).m_script;
+        cmdQueue.splice (cmdQueue.begin(), subQueue);
         return true;
     }
 

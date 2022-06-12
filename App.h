@@ -8,12 +8,14 @@
 #include <unordered_map>
 #include <queue>
 
+#include "ScriptLoader.h"
 #include "Configurator.h"
 
 class App : public Configurator
 {
 private:
     std::unordered_map<std::string, void(App::*)(std::list<std::string> & commandQueue)> m_commands;
+    ScriptLoader m_scriptLoader;
 
 public:
     App();
